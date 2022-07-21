@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package inventory.v1alpha1;
+
+import "google/api/annotations.proto";
+
+message Item {
+    string item_id = 1 [json_name = "itemID"];
+    string name = 2;
+    float weight = 3;
+    float height = 4;
+    int64 quantity = 5;
+    float price = 6;
+}
+
+message GetItemRequest {
+    string item_id = 1 [json_name = "itemID"];
+}
+
+message GetItemResponse {
+    Item item = 1;
+}
+
+service InventoryService {
+    rpc GetItem(GetItemRequest) returns (GetItemResponse) {
+        option (google.api.http) = {
+            get: "/api/v1alpha1/inventory/items/{item_id}"
+        };
+    }
+}
