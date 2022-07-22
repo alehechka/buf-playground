@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.8.1
-	github.com/graphql-go/graphql v0.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.0
 	google.golang.org/genproto v0.0.0-20220719170305-83ca9fad585f
 	google.golang.org/grpc v1.48.0
