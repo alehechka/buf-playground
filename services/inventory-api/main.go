@@ -7,17 +7,19 @@ import (
 
 	inventory "github.com/alehechka/buf-playground/proto/gen/go/inventory/v1alpha1"
 	inventoryserver "github.com/alehechka/buf-playground/services/inventory-api/server"
+	"github.com/alehechka/buf-playground/utils"
 	"google.golang.org/grpc"
 )
 
+var (
+	listenOn = ":" + utils.GetEnv("PORT", "80")
+)
+
 func main() {
-	if err := run(); err != nil {
-		log.Fatal(err)
-	}
+	utils.Check(run())
 }
 
 func run() error {
-	listenOn := "127.0.0.1:8080"
 	listener, err := net.Listen("tcp", listenOn)
 	if err != nil {
 		return fmt.Errorf("failed to listen on %s: %w", listenOn, err)

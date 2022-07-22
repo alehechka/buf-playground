@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 
+	"google.golang.org/genproto/googleapis/type/money"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -25,6 +26,10 @@ func (s *InventoryServiceServer) GetItem(ctx context.Context, req *inventory.Get
 		Weight:   2.45,
 		Height:   1.3,
 		Quantity: 32,
-		Price:    19.99,
+		Price: &money.Money{
+			CurrencyCode: "USD",
+			Units:        19,
+			Nanos:        190000000,
+		},
 	}}, nil
 }

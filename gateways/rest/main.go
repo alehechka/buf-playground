@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -15,8 +16,8 @@ import (
 
 var (
 	// gRPC server endpoint
-	grpcInventoryServerEndpoint = utils.GetEnv("GRCP-INVENTORY-SERVER-ENDPOINT", "127.0.0.1:8080")
-	grpcSessionServerEndpoint   = utils.GetEnv("GRCP-SESSION-SERVER-ENDPOINT", "127.0.0.1:8081")
+	grpcInventoryServerEndpoint = utils.GetEnv("GRCP_INVENTORY_SERVER_ENDPOINT", "localhost:3001")
+	grpcSessionServerEndpoint   = utils.GetEnv("GRCP_SESSION_SERVER_ENDPOINT", "localhost:3002")
 )
 
 func main() {
@@ -30,6 +31,9 @@ func main() {
 
 func createRESTHandler() (mux *runtime.ServeMux, err error) {
 	ctx := context.Background()
+
+	fmt.Println("inventory: \t", grpcInventoryServerEndpoint)
+	fmt.Println("session: \t", grpcSessionServerEndpoint)
 
 	mux = runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}

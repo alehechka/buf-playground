@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  rest-gateway:
+    build:
+      dockerfile: Dockerfile.local
+    container_name: rest-gateway
+    command: gin -i --build gateways/rest --bin gateways/rest/gin-bin run
+    depends_on:
+      - inventory-api
+      - session-api
+    networks:
+      - backend
+    ports:
+      - 3000:3001
+    environment:
+      GRCP_INVENTORY_SERVER_ENDPOINT: 'inventory-api:80'
+      GRCP_SESSION_SERVER_ENDPOINT: 'session-api:80'
+    volumes:
+      - .:/app
+
+  inventory-api:
+    build:
+      dockerfile: Dockerfile.local
+    container_name: inventory-api
+    command: gin -i --build services/inventory-api --bin services/inventory-api/gin-bin -a 80 run
+    networks:
+      - backend
+    volumes:
+      - .:/app
+
+  session-api:
+    build:
+      dockerfile: Dockerfile.local
+    container_name: session-api
+    command: gin -i --build services/session-api --bin services/session-api/gin-bin -a 80 run
+    networks:
+      - backend
+    volumes:
+      - .:/app
+
+networks:
+  backend:
+    driver: bridge
