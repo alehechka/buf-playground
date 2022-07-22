@@ -3,6 +3,7 @@ syntax = "proto3";
 package inventory.v1alpha1;
 
 import "google/api/annotations.proto";
+import "google/type/money.proto";
 
 message Item {
     string item_id = 1 [json_name = "itemID"];
@@ -10,7 +11,7 @@ message Item {
     float weight = 3;
     float height = 4;
     int64 quantity = 5;
-    float price = 6;
+    google.type.Money price = 6;
 }
 
 message GetItemRequest {

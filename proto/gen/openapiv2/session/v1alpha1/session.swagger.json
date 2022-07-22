@@ -75,22 +75,27 @@
         }
       }
     },
-    "v1alpha1Date": {
+    "typeDate": {
       "type": "object",
       "properties": {
-        "day": {
+        "year": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Year of the date. Must be from 1 to 9999, or 0 to specify a date without\na year."
         },
         "month": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Month of a year. Must be from 1 to 12, or 0 to specify a year without a\nmonth and day."
         },
-        "year": {
+        "day": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Day of a month. Must be from 1 to 31 and valid for the year and month, or 0\nto specify a year by itself or a year and month where the day isn't\nsignificant."
         }
-      }
+      },
+      "description": "* A full date, with non-zero year, month, and day values\n* A month and day value, with a zero year, such as an anniversary\n* A year on its own, with zero month and day values\n* A year and month value, with a zero day, such as a credit card expiration\ndate\n\nRelated types are [google.type.TimeOfDay][google.type.TimeOfDay] and\n`google.protobuf.Timestamp`.",
+      "title": "Represents a whole or partial calendar date, such as a birthday. The time of\nday and time zone are either specified elsewhere or are insignificant. The\ndate is relative to the Gregorian Calendar. This can represent one of the\nfollowing:"
     },
     "v1alpha1Gender": {
       "type": "string",
@@ -122,7 +127,7 @@
           "type": "string"
         },
         "birthday": {
-          "$ref": "#/definitions/v1alpha1Date"
+          "$ref": "#/definitions/typeDate"
         },
         "gender": {
           "$ref": "#/definitions/v1alpha1Gender"
