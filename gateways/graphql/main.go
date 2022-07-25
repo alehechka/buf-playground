@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -26,7 +25,7 @@ func main() {
 
 func createGraphQLHandler() (mux *runtime.ServeMux, err error) {
 	mux = runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	opts := []grpc.DialOption{grpc.WithInsecure()}
 
 	if err = inventorygw.RegisterInventoryServiceGraphql(mux, utils.GRPCInventoryServerEndpoint, opts...); err != nil {
 		return nil, err

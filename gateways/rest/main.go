@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 
 	inventorygw "github.com/alehechka/buf-playground/proto/gen/go/inventory/v1alpha1"
 	sessiongw "github.com/alehechka/buf-playground/proto/gen/go/session/v1alpha1"
@@ -26,7 +25,7 @@ func createRESTHandler() (mux *runtime.ServeMux, err error) {
 	ctx := context.Background()
 
 	mux = runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	opts := []grpc.DialOption{grpc.WithInsecure()}
 
 	if err = inventorygw.RegisterInventoryServiceHandlerFromEndpoint(ctx, mux, utils.GRPCInventoryServerEndpoint, opts); err != nil {
 		return nil, err
