@@ -11,23 +11,19 @@ import (
 	"google.golang.org/grpc"
 )
 
-var (
-	listenOn = ":" + utils.GetEnv("PORT", "80")
-)
-
 func main() {
 	utils.Check(run())
 }
 
 func run() error {
-	listener, err := net.Listen("tcp", listenOn)
+	listener, err := net.Listen("tcp", utils.ListenOn)
 	if err != nil {
-		return fmt.Errorf("failed to listen on %s: %w", listenOn, err)
+		return fmt.Errorf("failed to listen on %s: %w", utils.ListenOn, err)
 	}
 
 	server := grpc.NewServer()
 	session.RegisterSessionServiceServer(server, &sessionserver.SessionServiceServer{})
-	log.Println("Listening on", listenOn)
+	log.Println("Listening on", utils.ListenOn)
 	if err := server.Serve(listener); err != nil {
 		return fmt.Errorf("failed to serve gRPC server: %w", err)
 	}
