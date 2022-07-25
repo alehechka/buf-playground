@@ -18,7 +18,8 @@ plugins:
       - paths=source_relative
       - require_unimplemented_servers=true
 
-  - remote: buf.build/frandier/plugins/grpc-graphql-gateway:v0.0.1
+  # - remote: buf.build/frandier/plugins/grpc-graphql-gateway:v0.0.1
+  - name: graphql
     out: gen/go
     opt:
       - paths=source_relative

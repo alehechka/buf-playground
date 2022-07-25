@@ -7,7 +7,6 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
 	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
-	date "google.golang.org/genproto/googleapis/type/date"
 	"google.golang.org/grpc"
 )
 
@@ -55,11 +54,8 @@ func Gql__type_User() *graphql.Object {
 				"last_name": &graphql.Field{
 					Type: graphql.NewNonNull(graphql.String),
 				},
-				"birthday": &graphql.Field{
-					Type: date.Gql__type_Date(),
-				},
 				"gender": &graphql.Field{
-					Type: sessionv1alpha1.Gql__enum_Gender(),
+					Type: Gql__enum_Gender(),
 				},
 			},
 		})
@@ -73,7 +69,7 @@ func Gql__type_GetUserResponse() *graphql.Object {
 			Name: "Sessionv1Alpha1_Type_GetUserResponse",
 			Fields: graphql.Fields{
 				"user": &graphql.Field{
-					Type: graphql.NewNonNull(sessionv1alpha1.Gql__type_User()),
+					Type: graphql.NewNonNull(Gql__type_User()),
 				},
 			},
 		})
@@ -109,11 +105,8 @@ func Gql__input_User() *graphql.InputObject {
 				"last_name": &graphql.InputObjectFieldConfig{
 					Type: graphql.NewNonNull(graphql.String),
 				},
-				"birthday": &graphql.InputObjectFieldConfig{
-					Type: date.Gql__input_Date(),
-				},
 				"gender": &graphql.InputObjectFieldConfig{
-					Type: sessionv1alpha1.Gql__enum_Gender(),
+					Type: Gql__enum_Gender(),
 				},
 			},
 		})
@@ -127,7 +120,7 @@ func Gql__input_GetUserResponse() *graphql.InputObject {
 			Name: "Sessionv1Alpha1_Input_GetUserResponse",
 			Fields: graphql.InputObjectConfigFieldMap{
 				"user": &graphql.InputObjectFieldConfig{
-					Type: graphql.NewNonNull(sessionv1alpha1.Gql__input_User()),
+					Type: graphql.NewNonNull(Gql__input_User()),
 				},
 			},
 		})
@@ -165,11 +158,11 @@ type graphql__resolver_SessionService struct {
 }
 
 // new_graphql_resolver_SessionService creates pointer of service struct
-func new_graphql_resolver_SessionService(conn *grpc.ClientConn) *graphql__resolver_SessionService {
+func new_graphql_resolver_SessionService(conn *grpc.ClientConn, host string, opts []grpc.DialOption) *graphql__resolver_SessionService {
 	return &graphql__resolver_SessionService{
 		conn:        conn,
-		host:        "localhost:50051",
-		dialOptions: []grpc.DialOption{},
+		host:        host,
+		dialOptions: opts,
 	}
 }
 
@@ -224,23 +217,13 @@ func (x *graphql__resolver_SessionService) GetMutations(conn *grpc.ClientConn) g
 // therefore gRPC connection will be opened and closed automatically.
 // Occasionally you may worry about open/close performance for each handling graphql request,
 // then you can call RegisterSessionServiceGraphqlHandler with *grpc.ClientConn manually.
-func RegisterSessionServiceGraphql(mux *runtime.ServeMux) error {
-	return RegisterSessionServiceGraphqlHandler(mux, nil)
+func RegisterSessionServiceGraphql(mux *runtime.ServeMux, host string, opts ...grpc.DialOption) error {
+	return RegisterSessionServiceGraphqlHandler(mux, nil, host, opts...)
 }
 
 // Register package divided graphql handler "with" *grpc.ClientConn.
 // this function accepts your defined grpc connection, so that we reuse that and never close connection inside.
-// You need to close it maunally when application will terminate.
-// Otherwise, you can specify automatic opening connection with ServiceOption directive:
-//
-// service SessionService {
-//    option (graphql.service) = {
-//        host: "host:port"
-//        insecure: true or false
-//    };
-//
-//    ...with RPC definitions
-// }
-func RegisterSessionServiceGraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return mux.AddHandler(new_graphql_resolver_SessionService(conn))
+// You need to close it manually when application will terminate.
+func RegisterSessionServiceGraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn, host string, opts ...grpc.DialOption) error {
+	return mux.AddHandler(new_graphql_resolver_SessionService(conn, host, opts))
 }

@@ -7,7 +7,6 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
 	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
-	money "google.golang.org/genproto/googleapis/type/money"
 	"google.golang.org/grpc"
 )
 
@@ -40,9 +39,6 @@ func Gql__type_Item() *graphql.Object {
 				"quantity": &graphql.Field{
 					Type: graphql.Int,
 				},
-				"price": &graphql.Field{
-					Type: graphql.NewNonNull(money.Gql__type_Money()),
-				},
 			},
 		})
 	}
@@ -55,7 +51,7 @@ func Gql__type_GetItemResponse() *graphql.Object {
 			Name: "Inventoryv1Alpha1_Type_GetItemResponse",
 			Fields: graphql.Fields{
 				"item": &graphql.Field{
-					Type: graphql.NewNonNull(inventoryv1alpha1.Gql__type_Item()),
+					Type: graphql.NewNonNull(Gql__type_Item()),
 				},
 			},
 		})
@@ -97,9 +93,6 @@ func Gql__input_Item() *graphql.InputObject {
 				"quantity": &graphql.InputObjectFieldConfig{
 					Type: graphql.Int,
 				},
-				"price": &graphql.InputObjectFieldConfig{
-					Type: graphql.NewNonNull(money.Gql__input_Money()),
-				},
 			},
 		})
 	}
@@ -112,7 +105,7 @@ func Gql__input_GetItemResponse() *graphql.InputObject {
 			Name: "Inventoryv1Alpha1_Input_GetItemResponse",
 			Fields: graphql.InputObjectConfigFieldMap{
 				"item": &graphql.InputObjectFieldConfig{
-					Type: graphql.NewNonNull(inventoryv1alpha1.Gql__input_Item()),
+					Type: graphql.NewNonNull(Gql__input_Item()),
 				},
 			},
 		})
@@ -150,11 +143,11 @@ type graphql__resolver_InventoryService struct {
 }
 
 // new_graphql_resolver_InventoryService creates pointer of service struct
-func new_graphql_resolver_InventoryService(conn *grpc.ClientConn) *graphql__resolver_InventoryService {
+func new_graphql_resolver_InventoryService(conn *grpc.ClientConn, host string, opts []grpc.DialOption) *graphql__resolver_InventoryService {
 	return &graphql__resolver_InventoryService{
 		conn:        conn,
-		host:        "localhost:50051",
-		dialOptions: []grpc.DialOption{},
+		host:        host,
+		dialOptions: opts,
 	}
 }
 
@@ -209,23 +202,13 @@ func (x *graphql__resolver_InventoryService) GetMutations(conn *grpc.ClientConn)
 // therefore gRPC connection will be opened and closed automatically.
 // Occasionally you may worry about open/close performance for each handling graphql request,
 // then you can call RegisterInventoryServiceGraphqlHandler with *grpc.ClientConn manually.
-func RegisterInventoryServiceGraphql(mux *runtime.ServeMux) error {
-	return RegisterInventoryServiceGraphqlHandler(mux, nil)
+func RegisterInventoryServiceGraphql(mux *runtime.ServeMux, host string, opts ...grpc.DialOption) error {
+	return RegisterInventoryServiceGraphqlHandler(mux, nil, host, opts...)
 }
 
 // Register package divided graphql handler "with" *grpc.ClientConn.
 // this function accepts your defined grpc connection, so that we reuse that and never close connection inside.
-// You need to close it maunally when application will terminate.
-// Otherwise, you can specify automatic opening connection with ServiceOption directive:
-//
-// service InventoryService {
-//    option (graphql.service) = {
-//        host: "host:port"
-//        insecure: true or false
-//    };
-//
-//    ...with RPC definitions
-// }
-func RegisterInventoryServiceGraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return mux.AddHandler(new_graphql_resolver_InventoryService(conn))
+// You need to close it manually when application will terminate.
+func RegisterInventoryServiceGraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn, host string, opts ...grpc.DialOption) error {
+	return mux.AddHandler(new_graphql_resolver_InventoryService(conn, host, opts))
 }

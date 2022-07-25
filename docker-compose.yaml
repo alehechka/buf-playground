@@ -19,6 +19,24 @@ services:
     volumes:
       - .:/app
 
+  graphql-gateway:
+    build:
+      dockerfile: Dockerfile.local
+    container_name: graphql-gateway
+    command: gin -i --build gateways/graphql --bin gateways/graphql/gin-bin run
+    depends_on:
+      - inventory-api
+      - session-api
+    networks:
+      - backend
+    ports:
+      - 3001:3001
+    environment:
+      GRCP_INVENTORY_SERVER_ENDPOINT: 'inventory-api:80'
+      GRCP_SESSION_SERVER_ENDPOINT: 'session-api:80'
+    volumes:
+      - .:/app
+
   inventory-api:
     build:
       dockerfile: Dockerfile.local
