@@ -5,17 +5,14 @@ services:
     build:
       dockerfile: Dockerfile.local
     container_name: rest-gateway
-    command: gin -i --build gateways/rest --bin gateways/rest/gin-bin run
+    command: gin -i --build $REST_DIR --bin $REST_DIR/gin-bin run
     depends_on:
       - inventory-api
       - session-api
     networks:
       - backend
     ports:
-      - 3000:3001
-    environment:
-      GRCP_INVENTORY_SERVER_ENDPOINT: 'inventory-api:80'
-      GRCP_SESSION_SERVER_ENDPOINT: 'session-api:80'
+      - $REST_PORT:3001
     volumes:
       - .:/app
 
@@ -23,17 +20,14 @@ services:
     build:
       dockerfile: Dockerfile.local
     container_name: graphql-gateway
-    command: gin -i --build gateways/graphql --bin gateways/graphql/gin-bin run
+    command: gin -i --build $GRAPHQL_DIR --bin $GRAPHQL_DIR/gin-bin run
     depends_on:
       - inventory-api
       - session-api
     networks:
       - backend
     ports:
-      - 3001:3001
-    environment:
-      GRCP_INVENTORY_SERVER_ENDPOINT: 'inventory-api:80'
-      GRCP_SESSION_SERVER_ENDPOINT: 'session-api:80'
+      - $GRAPHQL_PORT:3001
     volumes:
       - .:/app
 
@@ -41,7 +35,7 @@ services:
     build:
       dockerfile: Dockerfile.local
     container_name: inventory-api
-    command: gin -i --build services/inventory-api --bin services/inventory-api/gin-bin -a 80 run
+    command: gin -i --build $INVENTORY_DIR --bin $INVENTORY_DIR/gin-bin -a $PORT run
     networks:
       - backend
     volumes:
@@ -51,7 +45,7 @@ services:
     build:
       dockerfile: Dockerfile.local
     container_name: session-api
-    command: gin -i --build services/session-api --bin services/session-api/gin-bin -a 80 run
+    command: gin -i --build $SESSION_DIR --bin $SESSION_DIR/gin-bin -a $PORT run
     networks:
       - backend
     volumes:
