@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    networks:
+      - database
+
   rest-gateway:
     build:
       dockerfile: Dockerfile.local
@@ -36,8 +43,11 @@ services:
       dockerfile: Dockerfile.local
     container_name: inventory-api
     command: gin -i --build $INVENTORY_DIR --bin $INVENTORY_DIR/gin-bin -a $PORT run
+    depends_on:
+      - mongo
     networks:
       - backend
+      - database
     volumes:
       - .:/app
 
@@ -46,11 +56,16 @@ services:
       dockerfile: Dockerfile.local
     container_name: session-api
     command: gin -i --build $SESSION_DIR --bin $SESSION_DIR/gin-bin -a $PORT run
+    depends_on:
+      - mongo
     networks:
       - backend
+      - database
     volumes:
       - .:/app
 
 networks:
   backend:
+    driver: bridge
+  database:
     driver: bridge

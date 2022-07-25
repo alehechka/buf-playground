@@ -4,11 +4,11 @@ import (
 	"context"
 	"log"
 
-	"google.golang.org/genproto/googleapis/type/money"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
 	inventory "github.com/alehechka/buf-playground/proto/gen/go/inventory/v1alpha1"
+	"github.com/alehechka/buf-playground/services/inventory-api/database"
 )
 
 // GetItem retrieves a random item from the InventoryService.
@@ -20,16 +20,10 @@ func (s *InventoryServiceServer) GetItem(ctx context.Context, req *inventory.Get
 
 	log.Println("Got a request to retrieve item with ID:", itemID)
 
-	return &inventory.GetItemResponse{Item: &inventory.Item{
-		ItemId:   itemID,
-		Name:     "basketball",
-		Weight:   2.45,
-		Height:   1.3,
-		Quantity: 32,
-		Price: &money.Money{
-			CurrencyCode: "USD",
-			Units:        19,
-			Nanos:        190000000,
-		},
-	}}, nil
+	item, err := database.GetItem(itemID)
+	if err != nil {
+		return nil, status.Error(codes.NotFound, err.Error())
+	}
+
+	return &inventory.GetItemResponse{Item: item}, nil
 }
