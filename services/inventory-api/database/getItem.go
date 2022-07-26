@@ -14,7 +14,7 @@ func GetItem(ctx context.Context, id string) (*inventory.Item, error) {
 		return nil, err
 	}
 
-	res := itemCollection().FindOne(ctx, item{id: oid})
+	res := itemCollection().FindOne(ctx, item{ID: oid})
 	if res.Err() != nil {
 		return nil, res.Err()
 	}
