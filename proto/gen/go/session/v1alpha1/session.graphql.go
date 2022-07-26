@@ -55,7 +55,8 @@ func Gql__type_User() *graphql.Object {
 					Type: graphql.NewNonNull(graphql.String),
 				},
 				"gender": &graphql.Field{
-					Type: Gql__enum_Gender(),
+					Type:        Gql__enum_Gender(),
+					Description: `google.type.Date birthday = 4;`,
 				},
 			},
 		})
@@ -106,7 +107,8 @@ func Gql__input_User() *graphql.InputObject {
 					Type: graphql.NewNonNull(graphql.String),
 				},
 				"gender": &graphql.InputObjectFieldConfig{
-					Type: Gql__enum_Gender(),
+					Description: `google.type.Date birthday = 4;`,
+					Type:        Gql__enum_Gender(),
 				},
 			},
 		})

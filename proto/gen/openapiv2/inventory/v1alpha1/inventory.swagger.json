@@ -16,6 +16,63 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1alpha1/inventory/items": {
+      "post": {
+        "operationId": "InventoryService_CreateItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1CreateItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "item.itemID",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "item.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "item.weight",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "item.height",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "item.quantity",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "InventoryService"
+        ]
+      }
+    },
     "/api/v1alpha1/inventory/items/{itemID}": {
       "get": {
         "operationId": "InventoryService_GetItem",
@@ -75,25 +132,13 @@
         }
       }
     },
-    "typeMoney": {
+    "v1alpha1CreateItemResponse": {
       "type": "object",
       "properties": {
-        "currencyCode": {
-          "type": "string",
-          "description": "The three-letter currency code defined in ISO 4217."
-        },
-        "units": {
-          "type": "string",
-          "format": "int64",
-          "description": "The whole units of the amount.\nFor example if `currencyCode` is `\"USD\"`, then 1 unit is one US dollar."
-        },
-        "nanos": {
-          "type": "integer",
-          "format": "int32",
-          "description": "Number of nano (10^-9) units of the amount.\nThe value must be between -999,999,999 and +999,999,999 inclusive.\nIf `units` is positive, `nanos` must be positive or zero.\nIf `units` is zero, `nanos` can be positive, zero, or negative.\nIf `units` is negative, `nanos` must be negative or zero.\nFor example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000."
+        "item": {
+          "$ref": "#/definitions/v1alpha1Item"
         }
-      },
-      "description": "Represents an amount of money with its currency type."
+      }
     },
     "v1alpha1GetItemResponse": {
       "type": "object",
@@ -123,9 +168,6 @@
         "quantity": {
           "type": "string",
           "format": "int64"
-        },
-        "price": {
-          "$ref": "#/definitions/typeMoney"
         }
       }
     }

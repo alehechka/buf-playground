@@ -6,21 +6,13 @@ import "google/api/annotations.proto";
 import "google/type/money.proto";
 import "graphql/graphql.proto";
 
-message NewItem {
-    string name = 2;
-    float weight = 3;
-    float height = 4;
-    int64 quantity = 5;
-    google.type.Money price = 6;
-}
-
 message Item {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+    string item_id = 1 [json_name = "itemID"];
     string name = 2;
     float weight = 3;
     float height = 4;
     int64 quantity = 5;
-    google.type.Money price = 6;
+    // google.type.Money price = 6;
 }
 
 message GetItemRequest {
@@ -28,7 +20,7 @@ message GetItemRequest {
 }
 
 message GetItemResponse {
-    NewItem item = 1 [(graphql.field) = {required: true}];
+    Item item = 1 [(graphql.field) = {required: true}];
 }
 
 message CreateItemRequest {
