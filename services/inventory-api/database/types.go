@@ -26,14 +26,10 @@ type item struct {
 }
 
 func newItem(i *inventory.Item) item {
-	newI, _ := updateItem(i)
-	newI.ID = primitive.NewObjectID()
-	return newI
+	return updateItem(i, primitive.NewObjectID())
 }
 
-func updateItem(i *inventory.Item) (item, error) {
-	id, err := primitive.ObjectIDFromHex(i.GetItemId())
-
+func updateItem(i *inventory.Item, id primitive.ObjectID) item {
 	return item{
 		ID:       id,
 		Name:     i.GetName(),
@@ -41,7 +37,7 @@ func updateItem(i *inventory.Item) (item, error) {
 		Height:   i.GetHeight(),
 		Quantity: i.GetQuantity(),
 		// Price:    i.GetPrice(),
-	}, err
+	}
 }
 
 func (i *item) Item() *inventory.Item {
