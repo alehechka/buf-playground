@@ -11,12 +11,16 @@ import (
 )
 
 var (
-	gql__type_Item             *graphql.Object      // message Item in inventory/v1alpha1/inventory.proto
-	gql__type_GetItemResponse  *graphql.Object      // message GetItemResponse in inventory/v1alpha1/inventory.proto
-	gql__type_GetItemRequest   *graphql.Object      // message GetItemRequest in inventory/v1alpha1/inventory.proto
-	gql__input_Item            *graphql.InputObject // message Item in inventory/v1alpha1/inventory.proto
-	gql__input_GetItemResponse *graphql.InputObject // message GetItemResponse in inventory/v1alpha1/inventory.proto
-	gql__input_GetItemRequest  *graphql.InputObject // message GetItemRequest in inventory/v1alpha1/inventory.proto
+	gql__type_Item                *graphql.Object      // message Item in inventory/v1alpha1/inventory.proto
+	gql__type_GetItemResponse     *graphql.Object      // message GetItemResponse in inventory/v1alpha1/inventory.proto
+	gql__type_GetItemRequest      *graphql.Object      // message GetItemRequest in inventory/v1alpha1/inventory.proto
+	gql__type_CreateItemResponse  *graphql.Object      // message CreateItemResponse in inventory/v1alpha1/inventory.proto
+	gql__type_CreateItemRequest   *graphql.Object      // message CreateItemRequest in inventory/v1alpha1/inventory.proto
+	gql__input_Item               *graphql.InputObject // message Item in inventory/v1alpha1/inventory.proto
+	gql__input_GetItemResponse    *graphql.InputObject // message GetItemResponse in inventory/v1alpha1/inventory.proto
+	gql__input_GetItemRequest     *graphql.InputObject // message GetItemRequest in inventory/v1alpha1/inventory.proto
+	gql__input_CreateItemResponse *graphql.InputObject // message CreateItemResponse in inventory/v1alpha1/inventory.proto
+	gql__input_CreateItemRequest  *graphql.InputObject // message CreateItemRequest in inventory/v1alpha1/inventory.proto
 )
 
 func Gql__type_Item() *graphql.Object {
@@ -28,7 +32,7 @@ func Gql__type_Item() *graphql.Object {
 					Type: graphql.String,
 				},
 				"name": &graphql.Field{
-					Type: graphql.NewNonNull(graphql.String),
+					Type: graphql.String,
 				},
 				"weight": &graphql.Field{
 					Type: graphql.Float,
@@ -73,6 +77,34 @@ func Gql__type_GetItemRequest() *graphql.Object {
 	return gql__type_GetItemRequest
 }
 
+func Gql__type_CreateItemResponse() *graphql.Object {
+	if gql__type_CreateItemResponse == nil {
+		gql__type_CreateItemResponse = graphql.NewObject(graphql.ObjectConfig{
+			Name: "Inventoryv1Alpha1_Type_CreateItemResponse",
+			Fields: graphql.Fields{
+				"item": &graphql.Field{
+					Type: graphql.NewNonNull(Gql__type_Item()),
+				},
+			},
+		})
+	}
+	return gql__type_CreateItemResponse
+}
+
+func Gql__type_CreateItemRequest() *graphql.Object {
+	if gql__type_CreateItemRequest == nil {
+		gql__type_CreateItemRequest = graphql.NewObject(graphql.ObjectConfig{
+			Name: "Inventoryv1Alpha1_Type_CreateItemRequest",
+			Fields: graphql.Fields{
+				"item": &graphql.Field{
+					Type: graphql.NewNonNull(Gql__type_Item()),
+				},
+			},
+		})
+	}
+	return gql__type_CreateItemRequest
+}
+
 func Gql__input_Item() *graphql.InputObject {
 	if gql__input_Item == nil {
 		gql__input_Item = graphql.NewInputObject(graphql.InputObjectConfig{
@@ -82,7 +114,7 @@ func Gql__input_Item() *graphql.InputObject {
 					Type: graphql.String,
 				},
 				"name": &graphql.InputObjectFieldConfig{
-					Type: graphql.NewNonNull(graphql.String),
+					Type: graphql.String,
 				},
 				"weight": &graphql.InputObjectFieldConfig{
 					Type: graphql.Float,
@@ -125,6 +157,34 @@ func Gql__input_GetItemRequest() *graphql.InputObject {
 		})
 	}
 	return gql__input_GetItemRequest
+}
+
+func Gql__input_CreateItemResponse() *graphql.InputObject {
+	if gql__input_CreateItemResponse == nil {
+		gql__input_CreateItemResponse = graphql.NewInputObject(graphql.InputObjectConfig{
+			Name: "Inventoryv1Alpha1_Input_CreateItemResponse",
+			Fields: graphql.InputObjectConfigFieldMap{
+				"item": &graphql.InputObjectFieldConfig{
+					Type: graphql.NewNonNull(Gql__input_Item()),
+				},
+			},
+		})
+	}
+	return gql__input_CreateItemResponse
+}
+
+func Gql__input_CreateItemRequest() *graphql.InputObject {
+	if gql__input_CreateItemRequest == nil {
+		gql__input_CreateItemRequest = graphql.NewInputObject(graphql.InputObjectConfig{
+			Name: "Inventoryv1Alpha1_Input_CreateItemRequest",
+			Fields: graphql.InputObjectConfigFieldMap{
+				"item": &graphql.InputObjectFieldConfig{
+					Type: graphql.NewNonNull(Gql__input_Item()),
+				},
+			},
+		})
+	}
+	return gql__input_CreateItemRequest
 }
 
 // graphql__resolver_InventoryService is a struct for making query, mutation and resolve fields.
@@ -195,7 +255,28 @@ func (x *graphql__resolver_InventoryService) GetQueries(conn *grpc.ClientConn) g
 
 // GetMutations returns acceptable graphql.Fields for Mutation.
 func (x *graphql__resolver_InventoryService) GetMutations(conn *grpc.ClientConn) graphql.Fields {
-	return graphql.Fields{}
+	return graphql.Fields{
+		"createItem": &graphql.Field{
+			Type: Gql__type_CreateItemResponse(),
+			Args: graphql.FieldConfigArgument{
+				"item": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(Gql__input_Item()),
+				},
+			},
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				var req CreateItemRequest
+				if err := runtime.MarshalRequest(p.Args, &req, false); err != nil {
+					return nil, errors.Wrap(err, "Failed to marshal request for createItem")
+				}
+				client := NewInventoryServiceClient(conn)
+				resp, err := client.CreateItem(p.Context, &req)
+				if err != nil {
+					return nil, errors.Wrap(err, "Failed to call RPC CreateItem")
+				}
+				return resp, nil
+			},
+		},
+	}
 }
 
 // Register package divided graphql handler "without" *grpc.ClientConn,

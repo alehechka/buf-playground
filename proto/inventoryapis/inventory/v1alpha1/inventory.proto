@@ -8,11 +8,11 @@ import "graphql/graphql.proto";
 
 message Item {
     string item_id = 1 [json_name = "itemID"];
-    string name = 2 [(graphql.field) = {required: true}];
+    string name = 2;
     float weight = 3;
     float height = 4;
     int64 quantity = 5;
-    google.type.Money price = 6 [(graphql.field) = {required: true}];
+    // google.type.Money price = 6;
 }
 
 message GetItemRequest {
@@ -20,6 +20,14 @@ message GetItemRequest {
 }
 
 message GetItemResponse {
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message CreateItemRequest {
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message CreateItemResponse {
     Item item = 1 [(graphql.field) = {required: true}];
 }
 
@@ -31,6 +39,16 @@ service InventoryService {
         option (graphql.schema) = {
             type: QUERY
             name: "getItem"
-          };
+        };
+    }
+
+    rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
+        option (google.api.http) = {
+            post: "/api/v1alpha1/inventory/items"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "createItem"
+        };
     }
 }
