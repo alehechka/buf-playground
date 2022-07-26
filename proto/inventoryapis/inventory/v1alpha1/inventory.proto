@@ -4,6 +4,7 @@ package inventory.v1alpha1;
 
 import "google/api/annotations.proto";
 import "google/type/money.proto";
+import "graphql/graphql.proto";
 
 message Item {
     string item_id = 1 [json_name = "itemID"];
@@ -11,21 +12,43 @@ message Item {
     float weight = 3;
     float height = 4;
     int64 quantity = 5;
-    google.type.Money price = 6;
+    // google.type.Money price = 6;
 }
 
 message GetItemRequest {
-    string item_id = 1 [json_name = "itemID"];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
 }
 
 message GetItemResponse {
-    Item item = 1;
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message CreateItemRequest {
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message CreateItemResponse {
+    Item item = 1 [(graphql.field) = {required: true}];
 }
 
 service InventoryService {
     rpc GetItem(GetItemRequest) returns (GetItemResponse) {
         option (google.api.http) = {
             get: "/api/v1alpha1/inventory/items/{item_id}"
+        };
+        option (graphql.schema) = {
+            type: QUERY
+            name: "getItem"
+        };
+    }
+
+    rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
+        option (google.api.http) = {
+            post: "/api/v1alpha1/inventory/items"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "createItem"
         };
     }
 }

@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 
-	"google.golang.org/genproto/googleapis/type/date"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -24,11 +23,11 @@ func (s *SessionServiceServer) GetUser(ctx context.Context, req *session.GetUser
 		UserId:    userID,
 		FirstName: "Adam",
 		LastName:  "Lehechka",
-		Birthday: &date.Date{
-			Day:   7,
-			Month: 3,
-			Year:  1998,
-		},
+		// Birthday: &date.Date{
+		// 	Day:   7,
+		// 	Month: 3,
+		// 	Year:  1998,
+		// },
 		Gender: session.Gender_GENDER_MALE,
 	}}, nil
 }
