@@ -10,7 +10,7 @@ import (
 	"github.com/alehechka/buf-playground/services/inventory-api/database"
 )
 
-// GetItem retrieves a random item from the InventoryService.
+// GetItem retrieves an item representing the provided itemID.
 func (s *InventoryServiceServer) GetItem(ctx context.Context, req *inventory.GetItemRequest) (*inventory.GetItemResponse, error) {
 	item, err := database.GetItem(ctx, req.GetItemId())
 	if err != nil {

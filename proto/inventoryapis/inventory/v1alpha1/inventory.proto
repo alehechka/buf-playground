@@ -7,7 +7,7 @@ import "google/type/money.proto";
 import "graphql/graphql.proto";
 
 message Item {
-    string item_id = 1 [json_name = "itemID"];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {name: "itemID"}];
     string name = 2;
     float weight = 3;
     float height = 4;
@@ -16,7 +16,7 @@ message Item {
 }
 
 message GetItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
 }
 
 message GetItemResponse {
@@ -29,6 +29,27 @@ message CreateItemRequest {
 
 message CreateItemResponse {
     Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message UpdateItemRequest {
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
+    Item item = 2 [(graphql.field) = {required: true}];
+}
+
+message UpdateItemResponse {
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message DeleteItemRequest {
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
+}
+
+message DeleteItemResponse {}
+
+message ListItemsRequest {}
+
+message ListItemsResponse {
+    repeated Item items = 1 [(graphql.field) = {required: true}];
 }
 
 service InventoryService {
@@ -49,6 +70,36 @@ service InventoryService {
         option (graphql.schema) = {
             type: MUTATION
             name: "createItem"
+        };
+    }
+
+    rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {
+        option (google.api.http) = {
+            put: "/api/v1alpha1/inventory/items/{item_id}"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "updateItem"
+        };
+    }
+
+    rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1alpha1/inventory/items/{item_id}"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "deleteItem"
+        };
+    }
+
+    rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {
+        option (google.api.http) = {
+            get: "/api/v1alpha1/inventory/items"
+        };
+        option (graphql.schema) = {
+            type: QUERY
+            name: "listItems"
         };
     }
 }
