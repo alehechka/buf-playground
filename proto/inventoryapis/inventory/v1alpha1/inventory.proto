@@ -11,7 +11,7 @@ message Item {
     string name = 2;
     float weight = 3;
     float height = 4;
-    int64 quantity = 5;
+    float quantity = 5;
     // google.type.Money price = 6;
 }
 
@@ -31,6 +31,27 @@ message CreateItemResponse {
     Item item = 1 [(graphql.field) = {required: true}];
 }
 
+message UpdateItemRequest {
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+    Item item = 2 [(graphql.field) = {required: true}];
+}
+
+message UpdateItemResponse {
+    Item item = 1 [(graphql.field) = {required: true}];
+}
+
+message DeleteItemRequest {
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+}
+
+message DeleteItemResponse {}
+
+message ListItemsRequest {}
+
+message ListItemsResponse {
+    repeated Item items = 1 [(graphql.field) = {required: true}];
+}
+
 service InventoryService {
     rpc GetItem(GetItemRequest) returns (GetItemResponse) {
         option (google.api.http) = {
@@ -45,10 +66,42 @@ service InventoryService {
     rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
         option (google.api.http) = {
             post: "/api/v1alpha1/inventory/items"
+            body: "item"
         };
         option (graphql.schema) = {
             type: MUTATION
             name: "createItem"
+        };
+    }
+
+    rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {
+        option (google.api.http) = {
+            put: "/api/v1alpha1/inventory/items/{item_id}"
+            body: "item"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "updateItem"
+        };
+    }
+
+    rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1alpha1/inventory/items/{item_id}"
+        };
+        option (graphql.schema) = {
+            type: MUTATION
+            name: "deleteItem"
+        };
+    }
+
+    rpc ListItems(ListItemsRequest) returns (ListItemsResponse) {
+        option (google.api.http) = {
+            get: "/api/v1alpha1/inventory/items"
+        };
+        option (graphql.schema) = {
+            type: QUERY
+            name: "listItems"
         };
     }
 }

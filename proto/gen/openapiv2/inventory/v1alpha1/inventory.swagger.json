@@ -17,6 +17,26 @@
   ],
   "paths": {
     "/api/v1alpha1/inventory/items": {
+      "get": {
+        "operationId": "InventoryService_ListItems",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1ListItemsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "InventoryService"
+        ]
+      },
       "post": {
         "operationId": "InventoryService_CreateItem",
         "responses": {
@@ -35,37 +55,12 @@
         },
         "parameters": [
           {
-            "name": "item.itemID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.weight",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.height",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.quantity",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
+            "name": "item",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Item"
+            }
           }
         ],
         "tags": [
@@ -96,6 +91,70 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "InventoryService"
+        ]
+      },
+      "delete": {
+        "operationId": "InventoryService_DeleteItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1DeleteItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "itemID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "InventoryService"
+        ]
+      },
+      "put": {
+        "operationId": "InventoryService_UpdateItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1UpdateItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "itemID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Item"
+            }
           }
         ],
         "tags": [
@@ -140,6 +199,9 @@
         }
       }
     },
+    "v1alpha1DeleteItemResponse": {
+      "type": "object"
+    },
     "v1alpha1GetItemResponse": {
       "type": "object",
       "properties": {
@@ -166,8 +228,27 @@
           "format": "float"
         },
         "quantity": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "v1alpha1ListItemsResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1alpha1Item"
+          }
+        }
+      }
+    },
+    "v1alpha1UpdateItemResponse": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/v1alpha1Item"
         }
       }
     }

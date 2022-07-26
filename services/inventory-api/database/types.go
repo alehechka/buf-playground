@@ -16,40 +16,37 @@ func itemCollection() *mongo.Collection {
 }
 
 type item struct {
-	id primitive.ObjectID `bson:"_id"`
+	ID primitive.ObjectID `bson:"_id"`
 
-	name     string       `bson:"n,omitempty"`
-	weight   float32      `bson:"w,omitempty"`
-	height   float32      `bson:"h,omitempty"`
-	quantity int64        `bson:"q,omitempty"`
-	price    *money.Money `bson:"p,omitempty"`
+	Name     string       `bson:"n,omitempty"`
+	Weight   float32      `bson:"w,omitempty"`
+	Height   float32      `bson:"h,omitempty"`
+	Quantity float32      `bson:"q,omitempty"`
+	Price    *money.Money `bson:"p,omitempty"`
 }
 
 func newItem(i *inventory.Item) item {
-	newI, _ := updateItem(i)
-	return newI
+	return updateItem(i, primitive.NewObjectID())
 }
 
-func updateItem(i *inventory.Item) (item, error) {
-	id, err := primitive.ObjectIDFromHex(i.GetItemId())
-
+func updateItem(i *inventory.Item, id primitive.ObjectID) item {
 	return item{
-		id:       id,
-		name:     i.GetName(),
-		weight:   i.GetWeight(),
-		height:   i.GetHeight(),
-		quantity: i.GetQuantity(),
-		// price:    i.GetPrice(),
-	}, err
+		ID:       id,
+		Name:     i.GetName(),
+		Weight:   i.GetWeight(),
+		Height:   i.GetHeight(),
+		Quantity: i.GetQuantity(),
+		// Price:    i.GetPrice(),
+	}
 }
 
 func (i *item) Item() *inventory.Item {
 	return &inventory.Item{
-		ItemId:   i.id.Hex(),
-		Name:     i.name,
-		Weight:   i.weight,
-		Height:   i.height,
-		Quantity: i.quantity,
-		// Price:    i.price,
+		ItemId:   i.ID.Hex(),
+		Name:     i.Name,
+		Weight:   i.Weight,
+		Height:   i.Height,
+		Quantity: i.Quantity,
+		// Price:    i.Price,
 	}
 }
