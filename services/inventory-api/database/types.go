@@ -21,7 +21,7 @@ type item struct {
 	Name     string       `bson:"n,omitempty"`
 	Weight   float32      `bson:"w,omitempty"`
 	Height   float32      `bson:"h,omitempty"`
-	Quantity int64        `bson:"q,omitempty"`
+	Quantity float32      `bson:"q,omitempty"`
 	Price    *money.Money `bson:"p,omitempty"`
 }
 

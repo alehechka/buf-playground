@@ -55,37 +55,12 @@
         },
         "parameters": [
           {
-            "name": "item.itemID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.weight",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.height",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.quantity",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
+            "name": "item",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Item"
+            }
           }
         ],
         "tags": [
@@ -174,37 +149,12 @@
             "type": "string"
           },
           {
-            "name": "item.itemID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.name",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "item.weight",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.height",
-            "in": "query",
-            "required": false,
-            "type": "number",
-            "format": "float"
-          },
-          {
-            "name": "item.quantity",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
+            "name": "item",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1Item"
+            }
           }
         ],
         "tags": [
@@ -278,8 +228,8 @@
           "format": "float"
         },
         "quantity": {
-          "type": "string",
-          "format": "int64"
+          "type": "number",
+          "format": "float"
         }
       }
     },

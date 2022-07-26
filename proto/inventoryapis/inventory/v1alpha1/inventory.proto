@@ -7,16 +7,16 @@ import "google/type/money.proto";
 import "graphql/graphql.proto";
 
 message Item {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {name: "itemID"}];
+    string item_id = 1 [json_name = "itemID"];
     string name = 2;
     float weight = 3;
     float height = 4;
-    int64 quantity = 5;
+    float quantity = 5;
     // google.type.Money price = 6;
 }
 
 message GetItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
 }
 
 message GetItemResponse {
@@ -32,7 +32,7 @@ message CreateItemResponse {
 }
 
 message UpdateItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
     Item item = 2 [(graphql.field) = {required: true}];
 }
 
@@ -41,7 +41,7 @@ message UpdateItemResponse {
 }
 
 message DeleteItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true, name: "itemID"}];
+    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
 }
 
 message DeleteItemResponse {}
@@ -66,6 +66,7 @@ service InventoryService {
     rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
         option (google.api.http) = {
             post: "/api/v1alpha1/inventory/items"
+            body: "item"
         };
         option (graphql.schema) = {
             type: MUTATION
@@ -76,6 +77,7 @@ service InventoryService {
     rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {
         option (google.api.http) = {
             put: "/api/v1alpha1/inventory/items/{item_id}"
+            body: "item"
         };
         option (graphql.schema) = {
             type: MUTATION

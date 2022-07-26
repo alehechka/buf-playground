@@ -236,7 +236,7 @@ func Gql__input_Item() *graphql.InputObject {
 					Type: graphql.Float,
 				},
 				"quantity": &graphql.InputObjectFieldConfig{
-					Type: graphql.Int,
+					Type: graphql.Float,
 				},
 			},
 		})
