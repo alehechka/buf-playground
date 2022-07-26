@@ -20,7 +20,7 @@ func (s *InventoryServiceServer) GetItem(ctx context.Context, req *inventory.Get
 
 	log.Println("Got a request to retrieve item with ID:", itemID)
 
-	item, err := database.GetItem(itemID)
+	item, err := database.GetItem(ctx, itemID)
 	if err != nil {
 		return nil, status.Error(codes.NotFound, err.Error())
 	}

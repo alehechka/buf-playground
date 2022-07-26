@@ -8,13 +8,13 @@ import (
 )
 
 // GetItem attempts to retrieve a single item denoted the provided id.
-func GetItem(id string) (*inventory.Item, error) {
+func GetItem(ctx context.Context, id string) (*inventory.Item, error) {
 	oid, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, err
 	}
 
-	res := itemCollection().FindOne(context.Background(), item{id: oid})
+	res := itemCollection().FindOne(ctx, item{id: oid})
 	if res.Err() != nil {
 		return nil, res.Err()
 	}

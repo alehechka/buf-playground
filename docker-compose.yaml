@@ -20,6 +20,8 @@ services:
       - backend
     ports:
       - $REST_PORT:3001
+    environment:
+      OTEL_SERVICE_NAME: $REST_DIR
     volumes:
       - .:/app
 
@@ -35,6 +37,8 @@ services:
       - backend
     ports:
       - $GRAPHQL_PORT:3001
+    environment:
+      OTEL_SERVICE_NAME: $GRAPHQL_DIR
     volumes:
       - .:/app
 
@@ -48,6 +52,8 @@ services:
     networks:
       - backend
       - database
+    environment:
+      OTEL_SERVICE_NAME: $INVENTORY_DIR
     volumes:
       - .:/app
 
@@ -61,6 +67,8 @@ services:
     networks:
       - backend
       - database
+    environment:
+      OTEL_SERVICE_NAME: $SESSION_DIR
     volumes:
       - .:/app
 

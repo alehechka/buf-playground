@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
 )
 
 var client *mongo.Client
@@ -18,7 +19,11 @@ var Database *mongo.Database
 func InitializeMongoDB(uri string, db string) (disconnect func() error, err error) {
 	timeoutContext, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 
-	client, err = mongo.Connect(timeoutContext, options.Client().ApplyURI(uri))
+	client, err = mongo.Connect(timeoutContext,
+		options.Client().
+			ApplyURI(uri).
+			SetMonitor(otelmongo.NewMonitor(otelmongo.WithTracerProvider(OpenTelTracer))))
+
 	if err != nil {
 		client.Disconnect(timeoutContext)
 		cancel()
