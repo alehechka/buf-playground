@@ -6,8 +6,8 @@ import (
 
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
-	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
-	"github.com/ysugimoto/grpc-graphql-gateway/ptypes/empty"
+	"github.com/alehechka/grpc-graphql-gateway/runtime"
+	"github.com/alehechka/grpc-graphql-gateway/ptypes/empty"
 	"google.golang.org/grpc"
 )
 
