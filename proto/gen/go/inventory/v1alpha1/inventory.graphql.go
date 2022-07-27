@@ -4,10 +4,9 @@ package inventoryv1alpha1
 import (
 	"context"
 
+	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
-	"github.com/alehechka/grpc-graphql-gateway/runtime"
-	"github.com/alehechka/grpc-graphql-gateway/ptypes/empty"
 	"google.golang.org/grpc"
 )
 
@@ -15,18 +14,22 @@ var (
 	gql__type_UpdateItemResponse  *graphql.Object      // message UpdateItemResponse in inventory/v1alpha1/inventory.proto
 	gql__type_UpdateItemRequest   *graphql.Object      // message UpdateItemRequest in inventory/v1alpha1/inventory.proto
 	gql__type_ListItemsResponse   *graphql.Object      // message ListItemsResponse in inventory/v1alpha1/inventory.proto
+	gql__type_ListItemsRequest    *graphql.Object      // message ListItemsRequest in inventory/v1alpha1/inventory.proto
 	gql__type_Item                *graphql.Object      // message Item in inventory/v1alpha1/inventory.proto
 	gql__type_GetItemResponse     *graphql.Object      // message GetItemResponse in inventory/v1alpha1/inventory.proto
 	gql__type_GetItemRequest      *graphql.Object      // message GetItemRequest in inventory/v1alpha1/inventory.proto
+	gql__type_DeleteItemResponse  *graphql.Object      // message DeleteItemResponse in inventory/v1alpha1/inventory.proto
 	gql__type_DeleteItemRequest   *graphql.Object      // message DeleteItemRequest in inventory/v1alpha1/inventory.proto
 	gql__type_CreateItemResponse  *graphql.Object      // message CreateItemResponse in inventory/v1alpha1/inventory.proto
 	gql__type_CreateItemRequest   *graphql.Object      // message CreateItemRequest in inventory/v1alpha1/inventory.proto
 	gql__input_UpdateItemResponse *graphql.InputObject // message UpdateItemResponse in inventory/v1alpha1/inventory.proto
 	gql__input_UpdateItemRequest  *graphql.InputObject // message UpdateItemRequest in inventory/v1alpha1/inventory.proto
 	gql__input_ListItemsResponse  *graphql.InputObject // message ListItemsResponse in inventory/v1alpha1/inventory.proto
+	gql__input_ListItemsRequest   *graphql.InputObject // message ListItemsRequest in inventory/v1alpha1/inventory.proto
 	gql__input_Item               *graphql.InputObject // message Item in inventory/v1alpha1/inventory.proto
 	gql__input_GetItemResponse    *graphql.InputObject // message GetItemResponse in inventory/v1alpha1/inventory.proto
 	gql__input_GetItemRequest     *graphql.InputObject // message GetItemRequest in inventory/v1alpha1/inventory.proto
+	gql__input_DeleteItemResponse *graphql.InputObject // message DeleteItemResponse in inventory/v1alpha1/inventory.proto
 	gql__input_DeleteItemRequest  *graphql.InputObject // message DeleteItemRequest in inventory/v1alpha1/inventory.proto
 	gql__input_CreateItemResponse *graphql.InputObject // message CreateItemResponse in inventory/v1alpha1/inventory.proto
 	gql__input_CreateItemRequest  *graphql.InputObject // message CreateItemRequest in inventory/v1alpha1/inventory.proto
@@ -77,6 +80,20 @@ func Gql__type_ListItemsResponse() *graphql.Object {
 	return gql__type_ListItemsResponse
 }
 
+func Gql__type_ListItemsRequest() *graphql.Object {
+	if gql__type_ListItemsRequest == nil {
+		gql__type_ListItemsRequest = graphql.NewObject(graphql.ObjectConfig{
+			Name: "Inventoryv1Alpha1_Type_ListItemsRequest",
+			Fields: graphql.Fields{
+				"_": &graphql.Field{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__type_ListItemsRequest
+}
+
 func Gql__type_Item() *graphql.Object {
 	if gql__type_Item == nil {
 		gql__type_Item = graphql.NewObject(graphql.ObjectConfig{
@@ -95,7 +112,7 @@ func Gql__type_Item() *graphql.Object {
 					Type: graphql.Float,
 				},
 				"quantity": &graphql.Field{
-					Type: graphql.Int,
+					Type: graphql.Float,
 				},
 			},
 		})
@@ -129,6 +146,20 @@ func Gql__type_GetItemRequest() *graphql.Object {
 		})
 	}
 	return gql__type_GetItemRequest
+}
+
+func Gql__type_DeleteItemResponse() *graphql.Object {
+	if gql__type_DeleteItemResponse == nil {
+		gql__type_DeleteItemResponse = graphql.NewObject(graphql.ObjectConfig{
+			Name: "Inventoryv1Alpha1_Type_DeleteItemResponse",
+			Fields: graphql.Fields{
+				"_": &graphql.Field{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__type_DeleteItemResponse
 }
 
 func Gql__type_DeleteItemRequest() *graphql.Object {
@@ -218,6 +249,20 @@ func Gql__input_ListItemsResponse() *graphql.InputObject {
 	return gql__input_ListItemsResponse
 }
 
+func Gql__input_ListItemsRequest() *graphql.InputObject {
+	if gql__input_ListItemsRequest == nil {
+		gql__input_ListItemsRequest = graphql.NewInputObject(graphql.InputObjectConfig{
+			Name: "Inventoryv1Alpha1_Input_ListItemsRequest",
+			Fields: graphql.InputObjectConfigFieldMap{
+				"_": &graphql.InputObjectFieldConfig{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__input_ListItemsRequest
+}
+
 func Gql__input_Item() *graphql.InputObject {
 	if gql__input_Item == nil {
 		gql__input_Item = graphql.NewInputObject(graphql.InputObjectConfig{
@@ -270,6 +315,20 @@ func Gql__input_GetItemRequest() *graphql.InputObject {
 		})
 	}
 	return gql__input_GetItemRequest
+}
+
+func Gql__input_DeleteItemResponse() *graphql.InputObject {
+	if gql__input_DeleteItemResponse == nil {
+		gql__input_DeleteItemResponse = graphql.NewInputObject(graphql.InputObjectConfig{
+			Name: "Inventoryv1Alpha1_Input_DeleteItemResponse",
+			Fields: graphql.InputObjectConfigFieldMap{
+				"_": &graphql.InputObjectFieldConfig{
+					Type: graphql.Boolean,
+				},
+			},
+		})
+	}
+	return gql__input_DeleteItemResponse
 }
 
 func Gql__input_DeleteItemRequest() *graphql.InputObject {
@@ -446,7 +505,7 @@ func (x *graphql__resolver_InventoryService) GetMutations(conn *grpc.ClientConn)
 		},
 
 		"deleteItem": &graphql.Field{
-			Type: empty.Gql__type_Empty(),
+			Type: Gql__type_DeleteItemResponse(),
 			Args: graphql.FieldConfigArgument{
 				"item_id": &graphql.ArgumentConfig{
 					Type:         graphql.NewNonNull(graphql.String),
