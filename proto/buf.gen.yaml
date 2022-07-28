@@ -2,10 +2,10 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: github.com/alehechka/buf-playground/gen/go
+    default: github.com/alehechka/buf-playground/proto/gen/go
     except:
       - buf.build/googleapis/googleapis
-      - buf.build/frandier/grpc-graphql-gateway
+      - buf.build/alehechka/grpc-graphql-gateway
 plugins:
   - remote: buf.build/protocolbuffers/plugins/go:v1.28.0-1
     out: gen/go

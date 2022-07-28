@@ -2,10 +2,10 @@
 version: v1
 deps:
   - remote: buf.build
-    owner: frandier
+    owner: alehechka
     repository: grpc-graphql-gateway
-    commit: 384f3408c6cb47df83462ad537498047
+    commit: 0ceec8364dc84d3dac3939ea30583d3e
   - remote: buf.build
     owner: googleapis
     repository: googleapis
-    commit: 264612d2aca446faab191b46c53e00e2
+    commit: 863a9f5e1e7d4121ab36f27a98eeba36
