@@ -36,7 +36,7 @@ func updateItem(i *inventory.Item, id primitive.ObjectID) item {
 		Weight:   i.GetWeight(),
 		Height:   i.GetHeight(),
 		Quantity: i.GetQuantity(),
-		// Price:    i.GetPrice(),
+		Price:    i.GetPrice(),
 	}
 }
 
@@ -47,6 +47,6 @@ func (i *item) Item() *inventory.Item {
 		Weight:   i.Weight,
 		Height:   i.Height,
 		Quantity: i.Quantity,
-		// Price:    i.Price,
+		Price:    i.Price,
 	}
 }

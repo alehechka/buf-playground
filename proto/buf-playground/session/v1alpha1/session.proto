@@ -3,7 +3,7 @@ syntax = "proto3";
 package session.v1alpha1;
 
 import "google/api/annotations.proto";
-import "google/type/date.proto";
+import "google/protobuf/timestamp.proto";
 import "graphql/v1/graphql.proto";
 
 enum Gender {
@@ -14,18 +14,18 @@ enum Gender {
 
 message User {
     string user_id = 1 [json_name = "userID"];
-    string first_name = 2 [(graphql.field) = {required: true}];
-    string last_name = 3 [(graphql.field) = {required: true}];
+    string first_name = 2 [(graphql.v1.field) = {required: true}];
+    string last_name = 3 [(graphql.v1.field) = {required: true}];
     Gender gender = 5;
-     // google.type.Date birthday = 4;
+    google.protobuf.Timestamp birthday = 4;
 }
 
 message GetUserRequest {
-    string user_id = 1 [json_name = "userID", (graphql.field) = {required: true}];
+    string user_id = 1 [json_name = "userID", (graphql.v1.field) = {required: true}];
 }
 
 message GetUserResponse {
-    User user = 1 [(graphql.field) = {required: true}];
+    User user = 1 [(graphql.v1.field) = {required: true}];
 }
 
 service SessionService {
@@ -33,7 +33,7 @@ service SessionService {
         option (google.api.http) = {
             get: "/api/v1alpha1/session/users/{user_id}"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: QUERY
             name: "getUser"
           };

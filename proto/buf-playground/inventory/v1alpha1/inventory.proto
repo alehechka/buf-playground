@@ -13,36 +13,36 @@ message Item {
     float weight = 3;
     float height = 4;
     float quantity = 5;
-    // google.type.Money price = 6;
+    google.type.Money price = 6;
 }
 
 message GetItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+    string item_id = 1 [json_name = "itemID", (graphql.v1.field) = {required: true}];
 }
 
 message GetItemResponse {
-    Item item = 1 [(graphql.field) = {required: true}];
+    Item item = 1 [(graphql.v1.field) = {required: true}];
 }
 
 message CreateItemRequest {
-    Item item = 1 [(graphql.field) = {required: true}];
+    Item item = 1 [(graphql.v1.field) = {required: true}];
 }
 
 message CreateItemResponse {
-    Item item = 1 [(graphql.field) = {required: true}];
+    Item item = 1 [(graphql.v1.field) = {required: true}];
 }
 
 message UpdateItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
-    Item item = 2 [(graphql.field) = {required: true}];
+    string item_id = 1 [json_name = "itemID", (graphql.v1.field) = {required: true}];
+    Item item = 2 [(graphql.v1.field) = {required: true}];
 }
 
 message UpdateItemResponse {
-    Item item = 1 [(graphql.field) = {required: true}];
+    Item item = 1 [(graphql.v1.field) = {required: true}];
 }
 
 message DeleteItemRequest {
-    string item_id = 1 [json_name = "itemID", (graphql.field) = {required: true}];
+    string item_id = 1 [json_name = "itemID", (graphql.v1.field) = {required: true}];
 }
 
 message DeleteItemResponse {}
@@ -50,7 +50,7 @@ message DeleteItemResponse {}
 message ListItemsRequest {}
 
 message ListItemsResponse {
-    repeated Item items = 1 [(graphql.field) = {required: true}];
+    repeated Item items = 1 [(graphql.v1.field) = {required: true}];
 }
 
 message PurchaseItemRequest {
@@ -66,7 +66,7 @@ service InventoryService {
         option (google.api.http) = {
             get: "/api/v1alpha1/inventory/items/{item_id}"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: QUERY
             name: "getItem"
         };
@@ -77,7 +77,7 @@ service InventoryService {
             post: "/api/v1alpha1/inventory/items"
             body: "item"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: MUTATION
             name: "createItem"
         };
@@ -88,7 +88,7 @@ service InventoryService {
             put: "/api/v1alpha1/inventory/items/{item_id}"
             body: "item"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: MUTATION
             name: "updateItem"
         };
@@ -98,7 +98,7 @@ service InventoryService {
         option (google.api.http) = {
             delete: "/api/v1alpha1/inventory/items/{item_id}"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: MUTATION
             name: "deleteItem"
         };
@@ -108,7 +108,7 @@ service InventoryService {
         option (google.api.http) = {
             get: "/api/v1alpha1/inventory/items"
         };
-        option (graphql.schema) = {
+        option (graphql.v1.schema) = {
             type: QUERY
             name: "listItems"
         };
