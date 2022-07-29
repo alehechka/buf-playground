@@ -4,6 +4,7 @@ package sessionv1alpha1
 import (
 	"context"
 
+	gql_ptypes_timestamppb "github.com/alehechka/grpc-graphql-gateway/ptypes/google/protobuf/timestamp"
 	"github.com/alehechka/grpc-graphql-gateway/runtime"
 	"github.com/graphql-go/graphql"
 	"github.com/pkg/errors"
@@ -55,8 +56,10 @@ func Gql__type_User() *graphql.Object {
 					Type: graphql.NewNonNull(graphql.String),
 				},
 				"gender": &graphql.Field{
-					Type:        Gql__enum_Gender(),
-					Description: `google.type.Date birthday = 4;`,
+					Type: Gql__enum_Gender(),
+				},
+				"birthday": &graphql.Field{
+					Type: gql_ptypes_timestamppb.Gql__type_Timestamp(),
 				},
 			},
 		})
@@ -107,8 +110,10 @@ func Gql__input_User() *graphql.InputObject {
 					Type: graphql.NewNonNull(graphql.String),
 				},
 				"gender": &graphql.InputObjectFieldConfig{
-					Description: `google.type.Date birthday = 4;`,
-					Type:        Gql__enum_Gender(),
+					Type: Gql__enum_Gender(),
+				},
+				"birthday": &graphql.InputObjectFieldConfig{
+					Type: gql_ptypes_timestamppb.Gql__input_Timestamp(),
 				},
 			},
 		})

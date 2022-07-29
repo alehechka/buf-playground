@@ -105,8 +105,11 @@
           "type": "string"
         },
         "gender": {
-          "$ref": "#/definitions/v1alpha1Gender",
-          "title": "google.type.Date birthday = 4;"
+          "$ref": "#/definitions/v1alpha1Gender"
+        },
+        "birthday": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }

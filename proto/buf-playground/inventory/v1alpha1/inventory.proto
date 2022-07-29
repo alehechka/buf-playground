@@ -5,6 +5,7 @@ package inventory.v1alpha1;
 import "google/api/annotations.proto";
 import "google/type/money.proto";
 import "graphql/graphql.proto";
+import "payment/v1alpha1/payment.proto";
 
 message Item {
     string item_id = 1 [json_name = "itemID"];
@@ -12,7 +13,7 @@ message Item {
     float weight = 3;
     float height = 4;
     float quantity = 5;
-    // google.type.Money price = 6;
+    google.type.Money price = 6;
 }
 
 message GetItemRequest {
@@ -50,6 +51,14 @@ message ListItemsRequest {}
 
 message ListItemsResponse {
     repeated Item items = 1 [(graphql.field) = {required: true}];
+}
+
+message PurchaseItemRequest {
+    payment.v1alpha1.Purchase purchase = 1;
+}
+
+message PurchaseItemResponse {
+    payment.v1alpha1.Receipt receipt = 1;
 }
 
 service InventoryService {

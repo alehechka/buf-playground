@@ -1,7 +1,8 @@
 version: v1
 deps:
   - buf.build/googleapis/googleapis
-  - buf.build/frandier/grpc-graphql-gateway
+  - buf.build/alehechka/grpc-graphql-gateway
+  - buf.build/grpc-ecosystem/grpc-gateway
 breaking:
   use:
     - FILE

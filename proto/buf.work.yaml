@@ -1,4 +1,3 @@
 version: v1
 directories:
-  - inventoryapis
-  - sessionapis
+  - buf-playground
