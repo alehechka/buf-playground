@@ -103,8 +103,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {}
+              "$ref": "#/definitions/v1alpha1DeleteItemResponse"
             }
           },
           "default": {
@@ -219,6 +218,9 @@
           "$ref": "#/definitions/v1alpha1Item"
         }
       }
+    },
+    "v1alpha1DeleteItemResponse": {
+      "type": "object"
     },
     "v1alpha1GetItemResponse": {
       "type": "object",

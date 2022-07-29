@@ -11,8 +11,6 @@ import (
 	"google.golang.org/grpc"
 
 	gql_ptypes_money "github.com/alehechka/grpc-graphql-gateway/ptypes/google/type/money"
-
-	gql_ptypes_emptypb "github.com/alehechka/grpc-graphql-gateway/ptypes/google/protobuf/emptypb"
 )
 
 var (
@@ -597,7 +595,7 @@ func (x *graphql__resolver_InventoryService) GetMutations(conn *grpc.ClientConn)
 		},
 
 		"deleteItem": &graphql.Field{
-			Type: gql_ptypes_emptypb.Gql__type_Empty(),
+			Type: Gql__type_DeleteItemResponse(),
 			Args: graphql.FieldConfigArgument{
 				"item_id": &graphql.ArgumentConfig{
 					Type:         graphql.NewNonNull(graphql.String),

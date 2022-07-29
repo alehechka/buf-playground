@@ -4,7 +4,7 @@ deps:
   - remote: buf.build
     owner: alehechka
     repository: grpc-graphql-gateway
-    commit: a1876a9351244526be80042fea710a38
+    commit: c34613fe2f4648ac889b4059b0ef7928
   - remote: buf.build
     owner: googleapis
     repository: googleapis

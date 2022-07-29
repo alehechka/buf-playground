@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -26,7 +25,7 @@ type InventoryServiceClient interface {
 	GetItem(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error)
 	CreateItem(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error)
 	UpdateItem(ctx context.Context, in *UpdateItemRequest, opts ...grpc.CallOption) (*UpdateItemResponse, error)
-	DeleteItem(ctx context.Context, in *DeleteItemRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteItem(ctx context.Context, in *DeleteItemRequest, opts ...grpc.CallOption) (*DeleteItemResponse, error)
 	ListItems(ctx context.Context, in *ListItemsRequest, opts ...grpc.CallOption) (*ListItemsResponse, error)
 }
 
@@ -65,8 +64,8 @@ func (c *inventoryServiceClient) UpdateItem(ctx context.Context, in *UpdateItemR
 	return out, nil
 }
 
-func (c *inventoryServiceClient) DeleteItem(ctx context.Context, in *DeleteItemRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *inventoryServiceClient) DeleteItem(ctx context.Context, in *DeleteItemRequest, opts ...grpc.CallOption) (*DeleteItemResponse, error) {
+	out := new(DeleteItemResponse)
 	err := c.cc.Invoke(ctx, "/inventory.v1alpha1.InventoryService/DeleteItem", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -90,7 +89,7 @@ type InventoryServiceServer interface {
 	GetItem(context.Context, *GetItemRequest) (*GetItemResponse, error)
 	CreateItem(context.Context, *CreateItemRequest) (*CreateItemResponse, error)
 	UpdateItem(context.Context, *UpdateItemRequest) (*UpdateItemResponse, error)
-	DeleteItem(context.Context, *DeleteItemRequest) (*emptypb.Empty, error)
+	DeleteItem(context.Context, *DeleteItemRequest) (*DeleteItemResponse, error)
 	ListItems(context.Context, *ListItemsRequest) (*ListItemsResponse, error)
 	mustEmbedUnimplementedInventoryServiceServer()
 }
@@ -108,7 +107,7 @@ func (UnimplementedInventoryServiceServer) CreateItem(context.Context, *CreateIt
 func (UnimplementedInventoryServiceServer) UpdateItem(context.Context, *UpdateItemRequest) (*UpdateItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateItem not implemented")
 }
-func (UnimplementedInventoryServiceServer) DeleteItem(context.Context, *DeleteItemRequest) (*emptypb.Empty, error) {
+func (UnimplementedInventoryServiceServer) DeleteItem(context.Context, *DeleteItemRequest) (*DeleteItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteItem not implemented")
 }
 func (UnimplementedInventoryServiceServer) ListItems(context.Context, *ListItemsRequest) (*ListItemsResponse, error) {

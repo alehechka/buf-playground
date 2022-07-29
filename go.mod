@@ -3,7 +3,7 @@ module github.com/alehechka/buf-playground
 go 1.18
 
 require (
-	github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728204242-22c1ccca78b3
+	github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220729030948-dc923f76b763
 	github.com/friendsofgo/graphiql v0.2.2
 	github.com/gin-gonic/gin v1.8.1
 	github.com/graphql-go/graphql v0.8.0
