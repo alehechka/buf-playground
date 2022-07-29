@@ -35,16 +35,6 @@ dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
-github.com/alehechka/grpc-graphql-gateway v0.1.0 h1:OKZnmM7J20tcKhXQjfusm27ZlUqdtz8YBzsQS0wS+8Y=
-github.com/alehechka/grpc-graphql-gateway v0.1.0/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728154228-f27e655e8b99 h1:Dl4SA8FhptXt91YnlGOleSZuAm3dPGUjxxAIEwn23E8=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728154228-f27e655e8b99/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728192324-e4ca7a656563 h1:XBuCnl99V+PeZI+kM5jhb6uAOAYWxoGUBAdBTlh/108=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728192324-e4ca7a656563/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728193909-f2bcf08ea175 h1:stRXVd7w7v3i4tX0gOPK7K7KKwBqUFYT/foS6Ch+mnw=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728193909-f2bcf08ea175/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728194605-92d4a050030c h1:eamFxaFtXEmhXnk+yhIp6RCL4gRq2LC2PnuMmY7qlI0=
-github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728194605-92d4a050030c/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728204242-22c1ccca78b3 h1:6Etd6x+avhfoHOAwwZFM/6LgG3Bl+ND4GXnAq1TJHTo=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728204242-22c1ccca78b3/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
@@ -161,7 +151,6 @@ github.com/google/renameio v0.1.0/go.mod h1:KWCgfxg9yswjAJkECMjeO8J8rahYeXnNhOm4
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/googleapis/gax-go/v2 v2.0.4/go.mod h1:0Wqv26UfaUD9n4G6kQubkQ+KchISgw+vpHVxEJEs9eg=
 github.com/googleapis/gax-go/v2 v2.0.5/go.mod h1:DWXyrwAJ9X0FpwwEdw+IPEYBICEFu5mhpdKc/us6bOk=
-github.com/graphql-go/graphql v0.7.8/go.mod h1:k6yrAYQaSP59DC5UVxbgxESlmVyojThKdORUqGDGmrI=
 github.com/graphql-go/graphql v0.8.0 h1:JHRQMeQjofwqVvGwYnr8JnPTY0AxgVy1HpHSGPLdH0I=
 github.com/graphql-go/graphql v0.8.0/go.mod h1:nKiHzRM0qopJEwCITUuIsxk9PlVlwIiiI8pnJEhordQ=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0/go.mod h1:BDjrQk3hbvj6Nolgz8mAMFbcEtjT1g+wF4CSlocrBnw=
@@ -233,8 +222,6 @@ github.com/xdg-go/stringprep v1.0.3 h1:kdwGpVNwPFtjs98xCGkHjQtGKh86rDcRZN17QEMCO
 github.com/xdg-go/stringprep v1.0.3/go.mod h1:W3f5j4i+9rC0kuIEJL0ky1VpHXQU3ocBgklLGvcBnW8=
 github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d h1:splanxYIlg+5LfHAM6xpdFEAYOk8iySO56hMFq6uLyA=
 github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d/go.mod h1:rHwXgn7JulP+udvsHwJoVG1YGAP6VLg4y9I5dyZdqmA=
-github.com/ysugimoto/grpc-graphql-gateway v0.22.0 h1:QXpSG5a5C/C/IvzxyY5uW0hhiDc6c1gaZO2vBPOpwLw=
-github.com/ysugimoto/grpc-graphql-gateway v0.22.0/go.mod h1:nl6C9P9X49Z4NppAFhIKkoFZxkseo+1E7EiPUeuhLJI=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

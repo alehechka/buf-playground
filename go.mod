@@ -9,7 +9,6 @@ require (
 	github.com/graphql-go/graphql v0.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.0
 	github.com/pkg/errors v0.9.1
-	github.com/ysugimoto/grpc-graphql-gateway v0.22.0
 	go.mongodb.org/mongo-driver v1.10.0
 	go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin v0.33.0
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.33.0
