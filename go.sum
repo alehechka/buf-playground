@@ -35,10 +35,16 @@ dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
+github.com/alehechka/grpc-graphql-gateway v0.1.0 h1:OKZnmM7J20tcKhXQjfusm27ZlUqdtz8YBzsQS0wS+8Y=
+github.com/alehechka/grpc-graphql-gateway v0.1.0/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728204242-22c1ccca78b3 h1:6Etd6x+avhfoHOAwwZFM/6LgG3Bl+ND4GXnAq1TJHTo=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220728204242-22c1ccca78b3/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220729030948-dc923f76b763 h1:OvyxB5XY+M/+peyQ8USMG0YNxPVlPmTeKyLWTcEwQ8A=
 github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220729030948-dc923f76b763/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
+github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220729175331-5eb774b6a02b h1:sFaZb6B2N00eY0gj60EvhWcLRa17WahVhW+KGGsWENU=
+github.com/alehechka/grpc-graphql-gateway v0.1.1-0.20220729175331-5eb774b6a02b/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
+github.com/alehechka/grpc-graphql-gateway v0.2.0 h1:Wj8+yA99/Jlr2t4NOXmXvaAxo1yOkgCA5GDODSvCfOI=
+github.com/alehechka/grpc-graphql-gateway v0.2.0/go.mod h1:4pTZ5SKjur6dBQx9UTGpKQ9YCqeAxi3Y9zXTBx6cwhA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/cenkalti/backoff/v4 v4.1.3 h1:cFAlzYUlVYDysBEH2T5hyJZMh3+5+WCBvSnK6Q8UtC4=
 github.com/cenkalti/backoff/v4 v4.1.3/go.mod h1:scbssz8iZGpm3xbr14ovlUdkxfGXNInqkPWOWmG2CLw=
