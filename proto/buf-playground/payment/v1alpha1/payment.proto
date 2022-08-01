@@ -14,6 +14,6 @@ message Purchase {
 
 message Receipt {
     Purchase purchase = 1;
-    string receipt_id = 2;
+    string receipt_id = 2 [json_name = "receiptID"];
     google.protobuf.Timestamp created_at = 3;
 }
