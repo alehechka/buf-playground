@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -12,6 +13,8 @@ import (
 
 // ListItems retrieves a list of Items
 func (s *InventoryServiceServer) ListItems(ctx context.Context, req *inventory.ListItemsRequest) (*inventory.ListItemsResponse, error) {
+	fmt.Println("Value:", ctx.Value("thing"))
+
 	items, err := database.ListItems(ctx)
 	if err != nil {
 		return nil, status.Error(codes.Unavailable, err.Error())

@@ -2,15 +2,15 @@ package database
 
 import (
 	inventory "github.com/alehechka/buf-playground/proto/gen/go/inventory/v1alpha1"
-	"github.com/alehechka/buf-playground/utils"
+	"github.com/alehechka/buf-playground/utils/database"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"google.golang.org/genproto/googleapis/type/money"
 )
 
 func itemCollection() *mongo.Collection {
-	if utils.Database != nil {
-		return utils.Database.Collection("items")
+	if database.Database != nil {
+		return database.Database.Collection("items")
 	}
 	return nil
 }
