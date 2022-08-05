@@ -12,6 +12,7 @@ import (
 
 // ListItems retrieves a list of Items
 func (s *InventoryServiceServer) ListItems(ctx context.Context, req *inventory.ListItemsRequest) (*inventory.ListItemsResponse, error) {
+
 	items, err := database.ListItems(ctx)
 	if err != nil {
 		return nil, status.Error(codes.Unavailable, err.Error())

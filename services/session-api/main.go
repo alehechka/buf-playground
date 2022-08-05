@@ -9,16 +9,17 @@ import (
 	session "github.com/alehechka/buf-playground/proto/gen/go/session/v1alpha1"
 	sessionserver "github.com/alehechka/buf-playground/services/session-api/server"
 	"github.com/alehechka/buf-playground/utils"
-	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
-	"google.golang.org/grpc"
+	"github.com/alehechka/buf-playground/utils/database"
+	"github.com/alehechka/buf-playground/utils/grpc_shared"
+	"github.com/alehechka/buf-playground/utils/otel"
 )
 
 func main() {
-	shutdownTracer, err := utils.InitializeOpenTelTracer()
+	shutdownTracer, err := otel.InitializeOpenTelTracer()
 	utils.Check(err)
 	defer shutdownTracer()
 
-	disconnect, err := utils.InitializeMongoDB(os.Getenv("MONGODB_CONNECTION_STRING"), "session")
+	disconnect, err := database.InitializeMongoDB(os.Getenv("MONGODB_CONNECTION_STRING"), "session")
 	utils.Check(err)
 	defer disconnect()
 
@@ -31,10 +32,7 @@ func run() error {
 		return fmt.Errorf("failed to listen on %s: %w", utils.ListenOn, err)
 	}
 
-	server := grpc.NewServer(
-		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
-		grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()),
-	)
+	server := grpc_shared.Server()
 
 	session.RegisterSessionServiceServer(server, &sessionserver.SessionServiceServer{})
 	log.Println("Listening on", utils.ListenOn)

@@ -1,9 +1,10 @@
-package utils
+package database
 
 import (
 	"context"
 	"time"
 
+	"github.com/alehechka/buf-playground/utils/otel"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -22,7 +23,7 @@ func InitializeMongoDB(uri string, db string) (disconnect func() error, err erro
 	client, err = mongo.Connect(timeoutContext,
 		options.Client().
 			ApplyURI(uri).
-			SetMonitor(otelmongo.NewMonitor(otelmongo.WithTracerProvider(OpenTelTracer))))
+			SetMonitor(otelmongo.NewMonitor(otelmongo.WithTracerProvider(otel.OpenTelTracer))))
 
 	if err != nil {
 		client.Disconnect(timeoutContext)
