@@ -3,7 +3,6 @@ module github.com/alehechka/buf-playground
 go 1.18
 
 require (
-	github.com/alehechka/go-utils v0.0.0-20220715183713-491933546af3
 	github.com/alehechka/grpc-graphql-gateway v0.2.5-0.20220801204054-aab1c02d6357
 	github.com/friendsofgo/graphiql v0.2.2
 	github.com/gin-gonic/gin v1.8.1
@@ -25,7 +24,6 @@ require (
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
-	github.com/gin-contrib/cors v1.4.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect

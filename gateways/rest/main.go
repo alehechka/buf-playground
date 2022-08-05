@@ -12,7 +12,6 @@ import (
 	session "github.com/alehechka/buf-playground/proto/gen/go/session/v1alpha1"
 	"github.com/alehechka/buf-playground/utils"
 	"github.com/alehechka/buf-playground/utils/grpc_shared"
-	"github.com/alehechka/buf-playground/utils/mux_shared"
 	"github.com/alehechka/buf-playground/utils/otel"
 )
 
@@ -21,15 +20,20 @@ func main() {
 	utils.Check(err)
 	defer shutdownTracer()
 
+	mux, err := createHandler()
+	utils.Check(err)
+
 	engine := gin.Default()
 	engine.Use(otelgin.Middleware(os.Getenv("OTEL_SERVICE_NAME"), otelgin.WithTracerProvider(otel.OpenTelTracer)))
-	engine.Any("/api/*path", mux_shared.RestMiddleware(createHandler))
+	engine.Any("/api/*path", gin.WrapH(mux))
 	utils.Check(engine.Run())
 }
 
-func createHandler(ctx context.Context, authToken grpc_shared.AuthToken) (mux *runtime.ServeMux, err error) {
+func createHandler() (mux *runtime.ServeMux, err error) {
+	ctx := context.Background()
+
 	mux = runtime.NewServeMux()
-	opts := grpc_shared.ClientDialOptions(authToken)
+	opts := grpc_shared.ClientDialOptions()
 
 	if err = inventory.RegisterInventoryServiceHandlerFromEndpoint(ctx, mux, utils.GRPCInventoryServerEndpoint, opts); err != nil {
 		return nil, err

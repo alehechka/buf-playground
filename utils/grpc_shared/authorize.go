@@ -2,7 +2,6 @@ package grpc_shared
 
 import (
 	"context"
-	"fmt"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
@@ -17,8 +16,6 @@ func authorize(ctx context.Context) (context.Context, error) {
 		return ctx, status.Errorf(codes.PermissionDenied, "retrieving metadata failed")
 	}
 
-	fmt.Println("Meta: ", md)
-
 	auth, ok := md[authorizationKey]
 	if !ok {
 		return ctx, status.Errorf(codes.PermissionDenied, "no auth details supplied")
@@ -28,19 +25,5 @@ func authorize(ctx context.Context) (context.Context, error) {
 		return ctx, status.Errorf(codes.PermissionDenied, "invalid authorization provided")
 	}
 
-	fmt.Println("Authorized: ", auth)
-
 	return ctx, nil
-}
-
-type AuthToken string
-
-func (a AuthToken) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
-	return map[string]string{
-		authorizationKey: string(a),
-	}, nil
-}
-
-func (a AuthToken) RequireTransportSecurity() bool {
-	return false
 }

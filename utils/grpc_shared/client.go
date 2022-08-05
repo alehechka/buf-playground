@@ -7,10 +7,9 @@ import (
 	"google.golang.org/grpc"
 )
 
-func ClientDialOptions(authToken AuthToken) []grpc.DialOption {
+func ClientDialOptions() []grpc.DialOption {
 	return []grpc.DialOption{
 		grpc.WithInsecure(),
-		grpc.WithPerRPCCredentials(authToken),
 		unaryClientChain(),
 		grpc.WithStreamInterceptor(otelgrpc.StreamClientInterceptor()),
 	}
